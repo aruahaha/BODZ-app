@@ -1,70 +1,106 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { AntDesign } from "@expo/vector-icons";
+import { useIsFocused, useTheme } from "@react-navigation/native";
+import { Stack } from "expo-router";
+import { Skeleton } from "native-base";
+import React, { useEffect, useState } from "react";
+import {
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  Animated,
+  Image,
+  ImageBackground,
+} from "react-native";
+import AnimatedHeader from "../../components/AnimatedHeader";
+import { supabase } from "../../lib/supabaseClient";
+import axios from "axios";
+import ItemsCard from "../../components/ItemsCard";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function Home() {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const { colors } = useTheme();
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
-export default function HomeScreen() {
+  useEffect(() => {
+    axios
+      .get(`https://bodz-server.vercel.app/api/getItems`)
+      .then((res) => {
+        setData(res?.data?.items?.ItemsResult?.Items);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const handleLogOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    setMenuVisible(!menuVisible);
+  };
+
+  const scrollY = new Animated.Value(0);
+  const diffClamp = Animated.diffClamp(scrollY, 0, 65);
+  const translateY = diffClamp.interpolate({
+    inputRange: [0, 65],
+    outputRange: [0, -65],
+  });
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View className="flex-1 bg-[#ffbe7a]">
+      <Stack.Screen
+        options={{
+          headerShown: false,
+          headerTitle: "BODZ",
+          headerTitleStyle: {
+            color: colors.text,
+            fontSize: 25,
+          },
+          headerStyle: {
+            backgroundColor: colors.header,
+            height: 90,
+            transform: [{ translateY: translateY }],
+          },
+        }}
+      />
+
+      <ScrollView
+        className=""
+        onScroll={(e) => {
+          scrollY.setValue(e.nativeEvent.contentOffset.y);
+        }}
+      >
+        <Animated.View
+          style={{
+            transform: [{ translateY: translateY }],
+          }}
+        >
+          <AnimatedHeader toggleMenu={toggleMenu} handleLogOut={handleLogOut} />
+          <ImageBackground
+            source={require("../../assets/images/HomePageImg.png")}
+            style={{ height: 350 }}
+          />
+        </Animated.View>
+        <View
+          className="px-5 py-10  rounded-t-3xl"
+          style={{ backgroundColor: colors.cardBackground }}
+        >
+          <Text
+            className="text-2xl mb-5 "
+            style={{ fontFamily: "Lexend", color: colors.text }}
+          >
+            Latest Deals
+          </Text>
+          <ItemsCard data={data} />
+        </View>
+      </ScrollView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

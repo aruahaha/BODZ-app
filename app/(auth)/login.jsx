@@ -26,11 +26,7 @@ AppState.addEventListener("change", (state) => {
 });
 
 export default function Auth() {
-  const [accessToken, setAccessToken] = useState(null)
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_ID,
-    androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_ID
-  })
+
   const [show, setShow] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,20 +34,8 @@ export default function Auth() {
 
   const { colors } = useTheme()
 
-  useEffect(() => {
-    if (response?.type === "success") {
-      setAccessToken(response.authentication.accessToken);
-      accessToken && fetchUserInfo()
-    }
-  }, [response, accessToken])
 
-  async function fetchUserInfo() {
-    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-  }
+
 
   async function signInWithEmail() {
     setLoading(true);
@@ -177,22 +161,6 @@ export default function Auth() {
             <ActivityIndicator color="white" className="pt-10" size={25} />
           ) : (
             <>
-              <View className="">
-                <Pressable
-                  className="bg-cardColor px-3 py-5 rounded-[20px] items-center"
-                  disabled={loading}
-                  onPress={() => {
-                    promptAsync()
-                  }}
-                >
-                  <Text
-                    className="text-lg text-white"
-
-                  >
-                    Google
-                  </Text>
-                </Pressable>
-              </View>
               <View className="mt-3 ">
                 <Pressable
                   className="bg-cardColor px-3 py-5 rounded-[20px] items-center"
