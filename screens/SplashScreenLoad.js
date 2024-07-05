@@ -9,8 +9,8 @@ const SplashScreenLoad = () => {
         autoPlay
         loop={false}
         style={{
-          width: 400,
-          height: 400,
+          width: 680,
+          height: 680,
           backgroundColor: "white",
         }}
         // Find more Lottie files at https://lottiefiles.com/featured

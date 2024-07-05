@@ -2,7 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { Icon, Input } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -12,7 +12,10 @@ import {
   View
 } from "react-native";
 import { supabase } from "../../lib/supabaseClient";
+import * as WebBrowser from "expo-web-browser"
+import * as Google from "expo-auth-session/providers/google"
 
+WebBrowser.maybeCompleteAuthSession()
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -23,17 +26,32 @@ AppState.addEventListener("change", (state) => {
 });
 
 export default function Auth() {
-
-
-
-
-
+  const [accessToken, setAccessToken] = useState(null)
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    clientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_ID,
+    androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_ID
+  })
   const [show, setShow] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { colors } = useTheme()
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      setAccessToken(response.authentication.accessToken);
+      accessToken && fetchUserInfo()
+    }
+  }, [response, accessToken])
+
+  async function fetchUserInfo() {
+    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+  }
 
   async function signInWithEmail() {
     setLoading(true);
@@ -159,7 +177,23 @@ export default function Auth() {
             <ActivityIndicator color="white" className="pt-10" size={25} />
           ) : (
             <>
-              <View className="mt-5 ">
+              <View className="">
+                <Pressable
+                  className="bg-cardColor px-3 py-5 rounded-[20px] items-center"
+                  disabled={loading}
+                  onPress={() => {
+                    promptAsync()
+                  }}
+                >
+                  <Text
+                    className="text-lg text-white"
+
+                  >
+                    Google
+                  </Text>
+                </Pressable>
+              </View>
+              <View className="mt-3 ">
                 <Pressable
                   className="bg-cardColor px-3 py-5 rounded-[20px] items-center"
                   disabled={loading}
@@ -173,40 +207,9 @@ export default function Auth() {
                   </Text>
                 </Pressable>
               </View>
-              <View className="mt-5 ">
-                {/* <GoogleSigninButton
-                  color={"light"}
-                  onPress={() => async () => {
-                    try {
-                      await GoogleSignin.hasPlayServices();
-                      const userInfo = await GoogleSignin.signIn();
-                      console.log(JSON.stringify(userInfo, null, 2))
-                    } catch (error) {
-                      if (isErrorWithCode(error)) {
-                        switch (error.code) {
-                          case statusCodes.SIGN_IN_CANCELLED:
-                            // user cancelled the login flow
-                            break;
-                          case statusCodes.IN_PROGRESS:
-                            // operation (eg. sign in) already in progress
-                            break;
-                          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-                            // play services not available or outdated
-                            break;
-                          default:
-                          // some other error happened
-                        }
-                      } else {
-                        // an error that's not related to google sign in occurred
-                      }
-                    }
-                  }}
-                  disabled={isInProgress}
-                /> */}
-              </View>
               <View className="mt-3">
                 <Pressable
-                  className="bg-green-600 p-5 rounded-[20px] items-center"
+                  className="bg-green-600 px-3 py-5 rounded-[20px] items-center"
                   disabled={loading}
                   onPress={() => signUpWithEmail()}
                 >

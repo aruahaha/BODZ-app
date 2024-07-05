@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 10.1.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://gqoknpohgpljrmdnrbpx.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdxb2tucG9oZ3BsanJtZG5yYnB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjAxMTg1MDIsImV4cCI6MjAzNTY5NDUwMn0.2AsMT2pkgOq7tA6SKvub_h-Fm7rXzMLbMgm3ri_KfAE",
+        "EXPO_PUBLIC_GOOGLE_WEB_ID": "895349826095-nfcr2ka93vj9ggmk138gmd89o1g3annb.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_ANDROID_ID": "895349826095-cotmck19p42rnt2hc43fnefmkk22s5mq.apps.googleusercontent.com"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
