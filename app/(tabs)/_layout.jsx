@@ -38,23 +38,25 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="item"
         options={{
-          tabBarLabel: ({ focused }) =>
-            focused ? (
-              <Text className="text-white text-[12px] mb-2">Explore</Text>
-            ) : null,
+          tabBarButton: () => null,
           tabBarStyle: {
-            height: 70,
+            height: 0,
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
           },
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
-              color={color}
-            />
-          ),
+        }}
+      />
+      <Tabs.Screen
+        name="category"
+        options={{
+          tabBarButton: () => null,
+          tabBarStyle: {
+            height: 0,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+          },
         }}
       />
     </Tabs>

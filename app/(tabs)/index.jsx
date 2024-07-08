@@ -1,28 +1,27 @@
-import { AntDesign } from "@expo/vector-icons";
-import { useIsFocused, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
+import axios from "axios";
 import { Stack } from "expo-router";
-import { Skeleton } from "native-base";
 import React, { useEffect, useState } from "react";
 import {
-  Alert,
-  SafeAreaView,
+  ActivityIndicator,
+  Animated,
+  ImageBackground,
   ScrollView,
   Text,
-  View,
-  Animated,
-  Image,
-  ImageBackground,
+  View
 } from "react-native";
 import AnimatedHeader from "../../components/AnimatedHeader";
-import { supabase } from "../../lib/supabaseClient";
-import axios from "axios";
+import CategoryCard from "../../components/CategoryCard";
 import ItemsCard from "../../components/ItemsCard";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function Home() {
   const [menuVisible, setMenuVisible] = useState(false);
   const { colors } = useTheme();
   const [data, setData] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+
 
   useEffect(() => {
     axios
@@ -89,7 +88,7 @@ export default function Home() {
           />
         </Animated.View>
         <View
-          className="px-5 py-10  rounded-t-3xl"
+          className="px-5 py-10 rounded-t-3xl"
           style={{ backgroundColor: colors.cardBackground }}
         >
           <Text
@@ -98,7 +97,10 @@ export default function Home() {
           >
             Latest Deals
           </Text>
-          <ItemsCard data={data} />
+
+          <ItemsCard data={data} loading={loading} />
+
+          <CategoryCard />
         </View>
       </ScrollView>
     </View>

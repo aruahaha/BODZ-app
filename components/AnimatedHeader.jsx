@@ -14,7 +14,7 @@ const AnimatedHeader = ({ toggleMenu, handleLogOut }) => {
         <SafeAreaView >
             <View className="py-2 flex-row justify-between items-center px-5 bg-[#ffbe7a]">
                 <View>
-                    <Text className=" text-3xl" style={{ color: colors.text, fontFamily: "Lexend" }}>BODZ</Text>
+                    <Text className=" text-3xl" style={{ color: "#191919", fontFamily: "Lexend" }}>BODZ</Text>
                 </View>
                 <View>
                     <View className="">
@@ -22,7 +22,7 @@ const AnimatedHeader = ({ toggleMenu, handleLogOut }) => {
                             <Ionicons
                                 name="notifications"
                                 size={25}
-                                color={colors.text}
+                                color="#191919"
                             />
                             <Menu
                                 w="150"
@@ -36,7 +36,7 @@ const AnimatedHeader = ({ toggleMenu, handleLogOut }) => {
                                             <Entypo
                                                 name="dots-three-vertical"
                                                 size={25}
-                                                color={colors.text}
+                                                color="#191919"
                                             />
                                         </Pressable>
                                     );
