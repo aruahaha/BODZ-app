@@ -20,7 +20,7 @@ const CategoryCard = () => {
             <View className="mb-5">
                 <Text style={{ fontFamily: "Lexend", color: colors.text }} className="text-2xl">Category</Text>
             </View>
-            <View className="flex-row flex-wrap gap-2 justify-between">
+            <View className="flex-row flex-wrap gap-5 justify-center">
                 {categories.map((category) => (
                     <Link
                         key={category.name}

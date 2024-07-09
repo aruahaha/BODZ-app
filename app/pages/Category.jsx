@@ -47,6 +47,32 @@ const Category = () => {
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                 <ActivityIndicator size="large" color={colors.text} />
             </View>
+            // <View className="flex-row flex-wrap justify-center gap-6 mt-0 mb-4 ">
+            //     <View >
+            //         <Skeleton w="140" h="160" rounded="xl" className="mb-4" />
+            //         <Skeleton.Text />
+            //     </View>
+            //     <View >
+            //         <Skeleton w="140" h="160" rounded="xl" className="mb-4" />
+            //         <Skeleton.Text />
+            //     </View>
+            //     <View >
+            //         <Skeleton w="140" h="160" rounded="xl" className="mb-4" />
+            //         <Skeleton.Text />
+            //     </View>
+            //     <View >
+            //         <Skeleton w="140" h="160" rounded="xl" className="mb-4" />
+            //         <Skeleton.Text />
+            //     </View>
+            //     <View >
+            //         <Skeleton w="140" h="160" rounded="xl" className="mb-4" />
+            //         <Skeleton.Text />
+            //     </View>
+            //     <View >
+            //         <Skeleton w="140" h="160" rounded="xl" className="mb-4" />
+            //         <Skeleton.Text />
+            //     </View>
+            // </View>
         );
     }
 
@@ -74,7 +100,7 @@ const Category = () => {
             <ScrollView>
                 <View className="flex-row flex-wrap justify-center gap-6 mt-0 mb-4 ">
                     {data?.map((item, i) => (
-                        <Link href={{ pathname: '/pages/ItemDetail', params: { item: JSON.stringify(item) } }} className='mr-2' key={i}>
+                        <Link href={{ pathname: '/pages/ItemDetail', params: { itemId: JSON.stringify(item.ASIN) } }} className='mr-2' key={i}>
 
                             <View key={i}>
                                 <View className="p-2 bg-white rounded-xl">

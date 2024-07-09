@@ -3,9 +3,9 @@ import axios from "axios";
 import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
   Animated,
   ImageBackground,
+  RefreshControl,
   ScrollView,
   Text,
   View,
@@ -18,28 +18,38 @@ import { supabase } from "../../lib/supabaseClient";
 export default function Home() {
   const [menuVisible, setMenuVisible] = useState(false);
   const { colors } = useTheme();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchItems = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`https://bodz-server.vercel.app/api/getItems`);
+      setData(res?.data?.items?.ItemsResult?.Items);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get(`https://bodz-server.vercel.app/api/getItems`)
-      .then((res) => {
-        setData(res?.data?.items?.ItemsResult?.Items);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+    fetchItems();
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchItems();
+  };
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
   const handleLogOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    await supabase.auth.signOut();
     setMenuVisible(!menuVisible);
   };
 
@@ -73,6 +83,9 @@ export default function Home() {
         onScroll={(e) => {
           scrollY.setValue(e.nativeEvent.contentOffset.y);
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <Animated.View
           style={{

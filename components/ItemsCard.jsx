@@ -2,20 +2,33 @@ import { View, Text, Image, ScrollView, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
 import { useTheme } from '@react-navigation/native';
+import { Skeleton } from 'native-base';
 
 const ItemsCard = ({ data, loading }) => {
     const { colors } = useTheme()
     return (
         <View className="gap-10 mb-10 justify-center">
             {loading ?
-                <View className="mt-2">
-                    <ActivityIndicator color={colors.text} size="large" />
+                <View className="flex-row mt-2">
+                    <View className="mr-2">
+                        <Skeleton h="160" w="130" rounded="xl" className="mb-4" />
+                        <Skeleton.Text />
+                    </View>
+                    <View className="mr-2">
+                        <Skeleton h="160" w="130" rounded="xl" className="mb-4" />
+                        <Skeleton.Text />
+                    </View>
+                    <View className="mr-2">
+                        <Skeleton h="160" w="130" rounded="xl" className="mb-4" />
+                        <Skeleton.Text />
+                    </View>
                 </View>
                 :
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+
                     {data?.map((item, i) => (
 
-                        <Link href={{ pathname: '/pages/ItemDetail', params: { item: JSON.stringify(item) } }} className='mr-2' key={i}>
+                        <Link href={{ pathname: '/pages/ItemDetail', params: { itemId: JSON.stringify(item.ASIN) } }} className='mr-2' key={i}>
                             <View>
                                 <View className='py-4 px-2 rounded-2xl bg-white '>
                                     <Image

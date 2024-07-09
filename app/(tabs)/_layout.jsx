@@ -5,6 +5,8 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Text } from "react-native";
+import { Fontisto } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -25,7 +27,7 @@ export default function TabLayout() {
               <Text className="text-white text-[12px] mb-2" style={{ fontFamily: "Lexend" }}>Home</Text>
             ) : null,
           tabBarStyle: {
-            height: 60,
+            height: 70,
           },
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
@@ -37,6 +39,38 @@ export default function TabLayout() {
         }}
       />
 
+
+      <Tabs.Screen
+        name="Deals"
+        options={{
+          tabBarLabel: ({ focused }) =>
+            focused ? (
+              <Text className="text-white text-[12px] mb-2" style={{ fontFamily: "Lexend" }}>Deals</Text>
+            ) : null,
+          tabBarStyle: {
+            height: 70,
+          },
+          tabBarIcon: ({ color, focused }) => (
+            <Fontisto name="shopping-sale" size={24} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="Profile"
+        options={{
+          tabBarLabel: ({ focused }) =>
+            focused ? (
+              <Text className="text-white text-[12px] mb-2" style={{ fontFamily: "Lexend" }}>Profile</Text>
+            ) : null,
+          tabBarStyle: {
+            height: 70,
+          },
+          tabBarIcon: ({ color, focused }) => (
+            <Octicons name="feed-person" size={24} color={color} />
+          ),
+        }}
+      />
 
     </Tabs>
   );

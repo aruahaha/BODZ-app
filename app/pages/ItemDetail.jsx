@@ -12,22 +12,41 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router, Stack } from "expo-router";
 import { Skeleton } from "native-base";
+import axios from "axios";
 
 const ItemDetail = () => {
   const route = useRoute();
-  const { item } = route.params;
+  const { itemId } = route.params;
   const { colors } = useTheme();
-  const parsedItem = JSON.parse(item);
-  const isFocused = useIsFocused();
-
+  const [data, setdata] = useState()
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
+    axios
+      .get(
+        `https://bodz-server.vercel.app/api/getItem/${JSON.parse(
+          itemId
+        )}`
+      )
+      .then((res) => {
+        setdata(res?.data?.item?.ItemsResult?.Items || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+        setLoading(false);
+      });
+
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
     return () => clearTimeout(timer);
-  }, [item]);
+  }, [itemId]);
+
+
 
   return (
     <View className="">
@@ -53,7 +72,7 @@ const ItemDetail = () => {
             <ScrollView className="px-4">
               <View className="w-full items-center bg-white rounded-lg px-2 py-4">
                 <Image
-                  source={{ uri: parsedItem?.Images?.Primary?.Large?.URL }}
+                  source={{ uri: data[0]?.Images?.Primary?.Large?.URL }}
                   className="w-52 h-52 "
                   style={{ objectFit: "contain" }}
                 />
@@ -67,7 +86,7 @@ const ItemDetail = () => {
                     className="text-lg text-center"
                     style={{ color: colors.text, fontFamily: "Lexend" }}
                   >
-                    {parsedItem?.ItemInfo?.Title?.DisplayValue.split(
+                    {data[0]?.ItemInfo?.Title?.DisplayValue.split(
                       /[,\s\n-]+/
                     )
                       .slice(0, 10)
@@ -88,7 +107,7 @@ const ItemDetail = () => {
                     className="text-sm mt-2 "
                     style={{ color: colors.text, fontFamily: "Poppins" }}
                   >
-                    {parsedItem?.ItemInfo?.Features?.DisplayValues.join(", ")}
+                    {data[0]?.ItemInfo?.Features?.DisplayValues.join(", ")}
                   </Text>
                 </View>
               </View>
@@ -99,14 +118,15 @@ const ItemDetail = () => {
               className="flex-row justify-between rounded-xl px-3"
               style={{ backgroundColor: colors.buyNowColor }}
             >
-              {parsedItem?.Offers ? (
-                parsedItem?.Offers?.Listings?.map((itemPrice, index) => (
+              {data[0]?.Offers ? (
+                data[0]?.Offers?.Listings?.map((itemPrice, index) => (
+
                   <View key={index} className=" ">
                     <Text
                       className="text-xl mt-2 "
                       style={{ color: colors.header, fontFamily: "Poppins" }}
                     >
-                      {parsedItem?.Offers?.Listings[0]?.Price?.DisplayAmount}
+                      {data[0]?.Offers?.Listings[0]?.Price?.DisplayAmount}
                     </Text>
                     <View className="flex-row gap-2">
                       <Text
@@ -134,7 +154,7 @@ const ItemDetail = () => {
               <Pressable
                 className="py-2 px-5 rounded-lg mt-2 items-center mb-2"
                 style={{ backgroundColor: colors.header }}
-                onPress={() => Linking.openURL(parsedItem?.DetailPageURL)}
+                onPress={() => Linking.openURL(data[0]?.DetailPageURL)}
               >
                 <Text
                   className="text-lg"
