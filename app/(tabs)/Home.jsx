@@ -8,10 +8,10 @@ import {
   ImageBackground,
   ScrollView,
   Text,
-  View
+  View,
 } from "react-native";
 import AnimatedHeader from "../../components/AnimatedHeader";
-import CategoryCard from "../../components/CategoryCard";
+import CategoryCard from "../../components/categoryCard";
 import ItemsCard from "../../components/ItemsCard";
 import { supabase } from "../../lib/supabaseClient";
 
