@@ -21,8 +21,6 @@ export default function Home() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
-
-
   useEffect(() => {
     axios
       .get(`https://bodz-server.vercel.app/api/getItems`)

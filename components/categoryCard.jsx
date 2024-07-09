@@ -24,7 +24,7 @@ const CategoryCard = () => {
                 {categories.map((category) => (
                     <Link
                         key={category.name}
-                        href={{ pathname: '/category', params: { category: JSON.stringify(category.name) } }}
+                        href={{ pathname: '/pages/Category', params: { category: JSON.stringify(category.name) } }}
                     >
                         <View className="bg-white p-2 rounded-lg items-center">
 

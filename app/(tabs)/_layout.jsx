@@ -18,47 +18,26 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="Home"
         options={{
           tabBarLabel: ({ focused }) =>
             focused ? (
-              <Text className="text-white text-[12px] mb-2">Home</Text>
+              <Text className="text-white text-[12px] mb-2" style={{ fontFamily: "Lexend" }}>Home</Text>
             ) : null,
           tabBarStyle: {
-            height: 70,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
+            height: 60,
           },
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "home" : "home-outline"}
+              size={25}
               color={color}
             />
           ),
         }}
       />
-      <Tabs.Screen
-        name="item"
-        options={{
-          tabBarButton: () => null,
-          tabBarStyle: {
-            height: 0,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-          },
-        }}
-      />
-      <Tabs.Screen
-        name="category"
-        options={{
-          tabBarButton: () => null,
-          tabBarStyle: {
-            height: 0,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-          },
-        }}
-      />
+
+
     </Tabs>
   );
 }

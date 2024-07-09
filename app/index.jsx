@@ -8,13 +8,12 @@ const index = () => {
     const delay = setTimeout(() => {
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) {
-          router.replace("/(tabs)/");
+          router.replace("/(tabs)/Home");
         }
       });
-
       supabase.auth.onAuthStateChange((_event, session) => {
         if (session) {
-          router.replace("/(tabs)/");
+          router.replace("/(tabs)/Home");
         } else {
           router.replace("/login");
         }

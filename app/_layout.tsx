@@ -22,6 +22,7 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     Lexend: require("../assets/fonts/Lexend/static/Lexend-Medium.ttf"),
+    Poppins: require("../assets/fonts/Poppins/Poppins-Medium.ttf"),
   });
   useEffect(() => {
     if (loaded) {

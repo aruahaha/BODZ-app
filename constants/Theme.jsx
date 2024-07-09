@@ -11,7 +11,9 @@ export const LightCustomTheme = {
         header: 'white',
         login: "white",
         loginInput: "#EEEEEE",
-        cardBackground: "#EEEEEE"
+        cardBackground: "#EEEEEE",
+        priceColor: "#008170",
+        buyNowColor: "#191A19"
     }
 }
 
@@ -28,6 +30,8 @@ export const DarkCustomTheme = {
         header: '#0F0F0F',
         login: "#191A19",
         loginInput: "#31363F",
-        cardBackground: "#191919"
+        cardBackground: "#191919",
+        priceColor: "#BED754",
+        buyNowColor: "#EEEEEE"
     },
 };

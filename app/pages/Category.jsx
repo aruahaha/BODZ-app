@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import axios from "axios";
 import { useIsFocused, useRoute, useTheme } from "@react-navigation/native";
-import { router, Stack } from "expo-router";
+import { Link, router, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-const CategoryPage = () => {
+const Category = () => {
     const route = useRoute();
     const { colors } = useTheme();
     const { category } = route.params;
@@ -21,7 +21,7 @@ const CategoryPage = () => {
 
 
     const handleBack = () => {
-        router.push("/(tabs)/");
+        router.replace("/(tabs)/Home");
         setData();
     };
 
@@ -65,34 +65,47 @@ const CategoryPage = () => {
                                 name="arrow-back-outline"
                                 size={24}
                                 color={colors.text}
-                                style={{ marginLeft: 20 }}
+                                style={{ marginRight: 20 }}
                             />
                         </Pressable>
                     ),
                 }}
             />
             <ScrollView>
-                <View className="flex-row flex-wrap justify-center gap-3 mt-0 mb-4 ">
+                <View className="flex-row flex-wrap justify-center gap-6 mt-0 mb-4 ">
                     {data?.map((item, i) => (
-                        <View key={i} className="p-4 bg-white rounded-xl">
-                            <Image
-                                source={{
-                                    uri: item?.Images?.Primary?.Large?.URL,
-                                }}
-                                className="w-32 h-32"
-                                style={{ objectFit: "contain", borderRadius: 12 }}
-                            />
-                            <View className="px-2 w-32 mt-2">
-                                <Text
-                                    className="text-sm font-bold"
-                                    style={{ fontFamily: "Lexend" }}
-                                >
-                                    {item?.ItemInfo?.Title?.DisplayValue.split(/[,\s\n-]+/)
-                                        .slice(0, 6)
-                                        .join(" ")}
-                                </Text>
+                        <Link href={{ pathname: '/pages/ItemDetail', params: { item: JSON.stringify(item) } }} className='mr-2' key={i}>
+
+                            <View key={i}>
+                                <View className="p-2 bg-white rounded-xl">
+                                    <Image
+                                        source={{
+                                            uri: item?.Images?.Primary?.Large?.URL,
+                                        }}
+                                        className="w-32 h-32"
+                                        style={{ objectFit: "contain", borderRadius: 12 }}
+                                    />
+                                </View>
+                                <View className=" w-32 mt-2">
+                                    <Text
+                                        className="text-sm font-bold"
+                                        style={{ fontFamily: "Lexend", color: colors.text }}
+                                    >
+                                        {item?.ItemInfo?.Title?.DisplayValue.split(/[,\s\n-]+/)
+                                            .slice(0, 6)
+                                            .join(" ")}
+                                    </Text>
+                                    {item?.Offers?.Listings[0]?.Price?.DisplayAmount ? (
+                                        <Text style={{ fontFamily: 'Lexend', color: colors.priceColor }} >
+                                            {item?.Offers?.Listings[0]?.Price?.DisplayAmount}
+                                        </Text>
+                                    ) : (
+
+                                        <Text style={{ fontFamily: 'Lexend' }} className="text-green-500 ">---</Text>
+                                    )}
+                                </View>
                             </View>
-                        </View>
+                        </Link>
                     ))}
                 </View>
             </ScrollView>
@@ -101,4 +114,4 @@ const CategoryPage = () => {
     );
 };
 
-export default CategoryPage;
+export default Category;
