@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { Icon, Input } from "native-base";
 import React, { useEffect, useState } from "react";
 import {
@@ -34,9 +34,6 @@ export default function Auth() {
 
   const { colors } = useTheme()
 
-
-
-
   async function signInWithEmail() {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
@@ -47,29 +44,6 @@ export default function Auth() {
     setLoading(false);
   }
 
-  async function signUpWithEmail() {
-    setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-
-    const addUser = async () => {
-      const { data, err } = await supabase
-        .from("User Data")
-        .insert([{ email: email }]);
-    };
-
-    if (error) Alert.alert(error.message);
-    if (!session) {
-      addUser();
-      Alert.alert("Please check your inbox for email verification!");
-    }
-    setLoading(false);
-  }
 
   return (
     <View className="h-full pt-14 " style={{ backgroundColor: colors.login }}>
@@ -158,7 +132,7 @@ export default function Auth() {
         </View>
         <View>
           {loading ? (
-            <ActivityIndicator color="white" className="pt-10" size={25} />
+            <ActivityIndicator color={colors.text} className="pt-10" size={25} />
           ) : (
             <>
               <View className="mt-3 ">
@@ -175,19 +149,8 @@ export default function Auth() {
                   </Text>
                 </Pressable>
               </View>
-              <View className="mt-3">
-                <Pressable
-                  className="bg-green-600 px-3 py-5 rounded-[20px] items-center"
-                  disabled={loading}
-                  onPress={() => signUpWithEmail()}
-                >
-                  <Text
-                    className="text-lg text-white"
-
-                  >
-                    Sign Up
-                  </Text>
-                </Pressable>
+              <View className="mt-5 items-center">
+                <Text className="text-md">Don't have an account? <Link href="/signUp" className="text-blue-700">Sign up</Link></Text>
               </View>
             </>
           )}
