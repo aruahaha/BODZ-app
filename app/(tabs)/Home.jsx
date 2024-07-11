@@ -103,7 +103,7 @@ export default function Home() {
           style={{ backgroundColor: colors.cardBackground }}
         >
           <Text
-            className="text-2xl mb-5 "
+            className="text-2xl  "
             style={{ fontFamily: "Lexend", color: colors.text }}
           >
             Latest Deals

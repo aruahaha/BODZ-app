@@ -23,6 +23,7 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     Lexend: require("../assets/fonts/Lexend/static/Lexend-Medium.ttf"),
     Poppins: require("../assets/fonts/Poppins/Poppins-Medium.ttf"),
+    Rubik: require("../assets/fonts/Rubik/static/Rubik-Medium.ttf"),
   });
   useEffect(() => {
     if (loaded) {

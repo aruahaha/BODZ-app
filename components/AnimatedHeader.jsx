@@ -14,7 +14,7 @@ const AnimatedHeader = ({ toggleMenu, handleLogOut }) => {
         <SafeAreaView >
             <View className="py-2 flex-row justify-between items-center px-5 bg-[#ffbe7a]">
                 <View>
-                    <Text className=" text-3xl" style={{ color: "#191919", fontFamily: "Lexend" }}>BODZ</Text>
+                    <Text className=" text-3xl" style={{ color: "#191919", fontFamily: "Rubik" }}>BODZ</Text>
                 </View>
                 <View>
                     <View className="">
@@ -44,7 +44,7 @@ const AnimatedHeader = ({ toggleMenu, handleLogOut }) => {
                                 placement="bottom right"
                             >
                                 <Menu.Item onPress={() => router.push("/")}>
-                                    Profile
+                                    About
                                 </Menu.Item>
                                 <Menu.Item onPress={() => router.push("/Expenses")}>
                                     Support
