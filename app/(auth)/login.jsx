@@ -9,13 +9,13 @@ import {
   AppState,
   Pressable,
   Text,
-  View
+  View,
 } from "react-native";
 import { supabase } from "../../lib/supabaseClient";
-import * as WebBrowser from "expo-web-browser"
-import * as Google from "expo-auth-session/providers/google"
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
 
-WebBrowser.maybeCompleteAuthSession()
+WebBrowser.maybeCompleteAuthSession();
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -26,13 +26,12 @@ AppState.addEventListener("change", (state) => {
 });
 
 export default function Auth() {
-
   const [show, setShow] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { colors } = useTheme()
+  const { colors } = useTheme();
 
   async function signInWithEmail() {
     setLoading(true);
@@ -43,7 +42,6 @@ export default function Auth() {
 
     setLoading(false);
   }
-
 
   return (
     <View className="h-full pt-14 " style={{ backgroundColor: colors.login }}>
@@ -89,8 +87,6 @@ export default function Auth() {
               placeholder="email@address.com"
               autoCapitalize={"none"}
               cursorColor={colors.text}
-
-
             />
           </View>
           <View>
@@ -132,7 +128,11 @@ export default function Auth() {
         </View>
         <View>
           {loading ? (
-            <ActivityIndicator color={colors.text} className="pt-10" size={25} />
+            <ActivityIndicator
+              color={colors.text}
+              className="pt-10"
+              size={25}
+            />
           ) : (
             <>
               <View className="mt-3 ">
@@ -141,16 +141,16 @@ export default function Auth() {
                   disabled={loading}
                   onPress={() => signInWithEmail()}
                 >
-                  <Text
-                    className="text-lg text-white"
-
-                  >
-                    Sign In
-                  </Text>
+                  <Text className="text-lg text-white">Sign In</Text>
                 </Pressable>
               </View>
               <View className="mt-5 items-center">
-                <Text className="text-md">Don't have an account? <Link href="/signUp" className="text-blue-700">Sign up</Link></Text>
+                <Text className="text-md" style={{ color: colors.text }}>
+                  Don't have an account?{" "}
+                  <Link href="/signUp" className="text-blue-400">
+                    Sign up
+                  </Link>
+                </Text>
               </View>
             </>
           )}
