@@ -2,6 +2,7 @@ export const LightCustomTheme = {
     dark: false,
     colors: {
         primary: 'black',
+        secondary: "#EEEEEE",
         background: '#EEEEEE',
         card: '#31363F',
         text: 'black',
@@ -19,7 +20,7 @@ export const LightCustomTheme = {
         tabBarBtInActive: "gray",
         loadingColor: "#444444",
         itemCardColor: "white",
-        itemCardInfoColor: "#EEEEEE"
+        itemCardInfoColor: "#EEEEEE",
     }
 }
 
@@ -27,6 +28,7 @@ export const DarkCustomTheme = {
     dark: true,
     colors: {
         primary: 'black',
+        secondary: "#0F0F0F",
         background: '#191919',
         card: '#384152',
         text: 'white',

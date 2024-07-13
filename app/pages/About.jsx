@@ -32,9 +32,8 @@ const About = () => {
         <View className="px-3 my-2">
           <View
             onStartShouldSetResponder={handleUsToggle}
-            className={`bg-black p-4 ${
-              usActive ? "rounded-t-lg" : "rounded-lg"
-            } flex-row justify-between items-center mt-4`}
+            className={`bg-black p-4 ${usActive ? "rounded-t-lg" : "rounded-lg"
+              } flex-row justify-between items-center mt-4`}
           >
             <Text style={{ color: colors.text, fontFamily: "Poppins" }}>
               Us
@@ -56,11 +55,11 @@ const About = () => {
                   className="text-lg p-4"
                 >
                   Best Online Dealz disclaims any guarantees, endorsements, or
-                  warranties for external website content and products linked
-                  from this Website. We don't verify or endorse the accuracy or
+                  warranties for external app content and products linked
+                  from this App. We don't verify or endorse the accuracy or
                   quality of information and products shared here.{"\n\n"} The
                   authenticity of user-posted information and deals on our
-                  website isn't verified, and inaccuracies may exist. We don't
+                  app isn't verified, and inaccuracies may exist. We don't
                   make specific recommendations for the products and services
                   presented, and your decision to make a purchase is at your
                   discretion.{"\n\n"} All information is provided "as is"
@@ -68,14 +67,14 @@ const About = () => {
                   risks regarding the information's usability, quality, and
                   suitability.
                   {"\n\n"} Users waive the right to make claims based on
-                  reliance on information from this website. Your use signifies
+                  reliance on information from this app. Your use signifies
                   acceptance of these terms, and you cannot claim ignorance.
-                  {"\n\n"} The website's development is ongoing, and we are not
+                  {"\n\n"} The app's development is ongoing, and we are not
                   responsible for user access issues. Information may not always
                   be up-to-date.
-                  {"\n\n"} The website is not intended for users in
+                  {"\n\n"} The app is not intended for users in
                   jurisdictions with differing laws than those mandated by the
-                  laws of India, and links to external websites don't imply our
+                  laws of India, and links to external app don't imply our
                   endorsement of their content or updates.
                 </Text>
               </ScrollView>
@@ -84,9 +83,8 @@ const About = () => {
 
           <View
             onStartShouldSetResponder={handleDiscToggle}
-            className={`bg-black p-4 ${
-              discActive ? "rounded-t-lg" : "rounded-lg"
-            } flex-row justify-between items-center mt-4`}
+            className={`bg-black p-4 ${discActive ? "rounded-t-lg" : "rounded-lg"
+              } flex-row justify-between items-center mt-4`}
           >
             <Text style={{ color: colors.text, fontFamily: "Poppins" }}>
               Disclaimer

@@ -20,7 +20,7 @@ const Support = () => {
       <View className="px-3 my-2 gap-2">
         <View className="bg-black rounded-lg p-4">
           <Text style={{ color: colors.text }} className="text-lg">
-            Should you have any questions about the site, advertising, or any
+            Should you have any questions about the app, advertising, or any
             other concerns, feel free to get in touch with us at
             help.bodz@gmail.com
           </Text>
